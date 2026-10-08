@@ -13,6 +13,22 @@ import { Sparkles, Layers, Activity } from 'lucide-react';
 
 const INITIAL_FORM = { ...SAMPLE_PATIENTS[0].data };
 
+const BLANK_FORM = {
+  JENIS_KELAMIN: 0,
+  UMUR_TAHUN: '',
+  'cholesterol total': '',
+  creatinin: '',
+  fbs: '',
+  rbs: '',
+  hgb: '',
+  'lymfosit%': '',
+  mch: '',
+  mchc: '',
+  mcv: '',
+  ureum: '',
+  wbc: '',
+};
+
 export default function App() {
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [activeSampleId, setActiveSampleId] = useState(SAMPLE_PATIENTS[0].id);
@@ -49,18 +65,37 @@ export default function App() {
     setError('');
   };
 
+  const handleSelectNewInput = () => {
+    setActiveSampleId('new-input');
+    setFormData({ ...BLANK_FORM });
+    setError('');
+  };
+
   const handleReset = () => {
-    setFormData({ ...SAMPLE_PATIENTS[0].data });
-    setActiveSampleId(SAMPLE_PATIENTS[0].id);
+    if (activeSampleId === 'new-input') {
+      setFormData({ ...BLANK_FORM });
+    } else {
+      setFormData({ ...SAMPLE_PATIENTS[0].data });
+      setActiveSampleId(SAMPLE_PATIENTS[0].id);
+    }
     setError('');
   };
 
   const handleFormChange = (newValues) => {
     setFormData(newValues);
-    setActiveSampleId(null);
+    if (activeSampleId !== 'new-input') {
+      setActiveSampleId('new-input');
+    }
   };
 
   const handleSubmit = async () => {
+    // Validate that all fields have values
+    const hasEmptyField = Object.entries(formData).some(([_, val]) => val === '' || val === null || val === undefined);
+    if (hasEmptyField) {
+      setError('Mohon lengkapi seluruh 13 parameter laboratorium sebelum melakukan analisis.');
+      return;
+    }
+
     setIsLoading(true);
     setError('');
     try {
@@ -120,6 +155,7 @@ export default function App() {
           <SamplePresets
             activeSampleId={activeSampleId}
             onSelectSample={handleSelectSample}
+            onSelectNewInput={handleSelectNewInput}
           />
 
           <div className="bg-white rounded-2xl p-6 sm:p-7 border border-[#146178]/15 shadow-sm space-y-5">

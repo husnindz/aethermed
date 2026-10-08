@@ -125,7 +125,9 @@ class Preprocessor:
 
         if self.scaler is not None:
             try:
-                scaled = self.scaler.transform(features_2d).astype(np.float32)
+                import pandas as pd
+                df = pd.DataFrame(features_2d, columns=FEATURE_ORDER)
+                scaled = self.scaler.transform(df).astype(np.float32)
                 return scaled
             except Exception as e:
                 logger.warning("Scaler transform failed: %s. Falling back to default scaling.", e)

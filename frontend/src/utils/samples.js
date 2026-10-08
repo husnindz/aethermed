@@ -49,7 +49,7 @@ export const SAMPLE_PATIENTS = [
     id: 'sample-penyakit-dalam',
     name: 'Kasus 3: Penyakit Dalam / Metabolik',
     description: 'Gula darah tinggi (FBS/RBS) serta gangguan fungsi ginjal (Ureum & Kreatinin)',
-    expectedClass: 'Spes. Penyakit Dalam',
+    expectedClass: 'Penyakit Dalam',
     data: {
       JENIS_KELAMIN: 1,
       UMUR_TAHUN: 58,
@@ -70,7 +70,7 @@ export const SAMPLE_PATIENTS = [
     id: 'sample-paru',
     name: 'Kasus 4: Paru-Paru / Respiratorik',
     description: 'Leukositosis (WBC tinggi), limfosit abnormal, dan anemia ringan',
-    expectedClass: 'Spes. Paru-Paru',
+    expectedClass: 'Paru-Paru',
     data: {
       JENIS_KELAMIN: 0,
       UMUR_TAHUN: 52,

@@ -49,6 +49,7 @@ export default function PredictionResult({ result }) {
   const currentTheme = getClassTheme(prediction.class_id);
   const highestProb = probabilities[prediction.class_name] || 0;
   const highestProbPercent = (highestProb * 100).toFixed(1);
+  const formatClassName = (name) => (name ? name.replace(/^Spes\.\s*/i, '') : '');
 
   return (
     <div className="w-full bg-[#EDFBFF] border border-[#AFAFAF]/20 rounded-[20px] p-6 sm:p-8 shadow-[0px_4px_16px_rgba(20,97,120,0.06)] space-y-6 text-left">
@@ -69,7 +70,7 @@ export default function PredictionResult({ result }) {
           </div>
 
           <h3 className="font-montserrat font-extrabold text-2xl sm:text-3xl text-[#146178] tracking-tight">
-            {prediction.class_name}
+            {formatClassName(prediction.class_name)}
           </h3>
 
           <p className="text-xs text-[#5C7076] font-poppins">
@@ -129,7 +130,7 @@ export default function PredictionResult({ result }) {
                         isWinner ? classTheme.barColor : 'bg-slate-300'
                       }`}
                     />
-                    <span className="truncate">{className}</span>
+                    <span className="truncate">{formatClassName(className)}</span>
                   </span>
                   <span
                     className={`font-montserrat shrink-0 ml-2 ${
